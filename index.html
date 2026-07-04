@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nindo Craft Shinobi War — Loja VIP</title>
+  <meta name="description" content="Adquira pacotes VIP exclusivos para o servidor Nindo Craft Shinobi War. Giros, Ryo, cosméticos e muito mais!" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ================================================================
+       CSS RESET & VARIÁVEIS GLOBAIS
+    ================================================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Superfícies */
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #16161f;
+      --bg-card-hover: #1c1c28;
+      --bg-modal-overlay: rgba(0, 0, 0, 0.82);
+      --bg-modal: #18182a;
+
+      /* Texto */
+      --text-primary: #e8e8ef;
+      --text-secondary: #9a9ab0;
+      --text-muted: #5e5e78;
+
+      /* Bordas */
+      --border-subtle: rgba(255, 255, 255, 0.06);
+      --border-card: rgba(255, 255, 255, 0.08);
+
+      /* Cores dos VIPs */
+      --hyuuga: #c8c8e0;
+      --senju: #34d399;
+      --uchiha: #f43f5e;
+      --otsutsuki: #a78bfa;
+      --kage: #f59e0b;
+
+      /* Tipografia */
+      --font-main: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      /* Transições */
+      --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ================================================================
+       BACKGROUND AMBIENCE — partículas animadas
+    ================================================================ */
+    .bg-ambience {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .bg-ambience::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
+      top: -200px;
+      left: -100px;
+      animation: float-orb 18s ease-in-out infinite alternate;
+    }
+
+    .bg-ambience::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(244, 63, 94, 0.06) 0%, transparent 70%);
+      bottom: -150px;
+      right: -100px;
+      animation: float-orb 22s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes float-orb {
+      0%   { transform: translate(0, 0) scale(1); }
+      50%  { transform: translate(60px, -40px) scale(1.15); }
+      100% { transform: translate(-30px, 30px) scale(0.95); }
+    }
+
+    /* ================================================================
+       HEADER / HERO
+    ================================================================ */
+    .hero {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 80px 24px 40px;
+    }
+
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--border-card);
+      background: rgba(167, 139, 250, 0.08);
+      color: var(--otsutsuki);
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+      animation: badge-pulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badge-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.25); }
+      50%      { box-shadow: 0 0 20px 4px rgba(167, 139, 250, 0.12); }
+    }
+
+    .hero__title {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--otsutsuki) 50%, var(--uchiha) 100%);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient-shift 6s ease-in-out infinite;
+    }
+
+    @keyframes gradient-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50%      { background-position: 100% 50%; }
+    }
+
+    .hero__subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: var(--text-secondary);
+      font-weight: 400;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Linha decorativa kanji-style */
+    .hero__divider {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .hero__divider span {
+      display: block;
+      height: 1px;
+      width: 80px;
+      background: linear-gradient(90deg, transparent, var(--text-muted), transparent);
+    }
+
+    .hero__divider-icon {
+      font-size: 1.4rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    /* ================================================================
+       SEÇÃO DE CARDS VIP
+    ================================================================ */
+    .vip-section {
+      position: relative;
+      z-index: 1;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    .vip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      justify-items: center;
+    }
+
+    /* ================================================================
+       CARD VIP — Base
+    ================================================================ */
+    .vip-card {
+      --accent: var(--hyuuga);
+      position: relative;
+      width: 100%;
+      max-width: 340px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 20px;
+      padding: 32px 28px 28px;
+      display: flex;
+      flex-direction: column;
+      transition:
+        transform var(--transition-smooth),
+        box-shadow var(--transition-smooth),
+        border-color var(--transition-smooth);
+      overflow: hidden;
+    }
+
+    /* Brilho gradient no topo do card */
+    .vip-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent 0%, var(--accent) 50%, transparent 100%);
+      opacity: 0.7;
+      transition: opacity var(--transition-smooth), height var(--transition-smooth);
+    }
+
+    /* Glow de fundo no hover */
+    .vip-card::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, var(--accent), transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .vip-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow:
+        0 20px 60px -15px rgba(0, 0, 0, 0.5),
+        0 0 40px -10px var(--accent);
+    }
+
+    .vip-card:hover::before {
+      opacity: 1;
+      height: 4px;
+    }
+
+    .vip-card:hover::after {
+      opacity: 0.04;
+    }
+
+    /* Variantes de cor */
+    .vip-card--hyuuga   { --accent: var(--hyuuga); }
+    .vip-card--senju    { --accent: var(--senju); }
+    .vip-card--uchiha   { --accent: var(--uchiha); }
+    .vip-card--otsutsuki { --accent: var(--otsutsuki); }
+    .vip-card--kage     { --accent: var(--kage); }
+
+    /* ================================================================
+       CARD VIP — Conteúdo interno
+    ================================================================ */
+    .vip-card__icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .vip-card__tier {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+    }
+
+    .vip-card__name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      margin-bottom: 4px;
+    }
+
+    .vip-card__price {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .vip-card__price small {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+    }
+
+    /* Lista de benefícios */
+    .vip-card__benefits {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 28px;
+      flex-grow: 1;
+    }
+
+    .vip-card__benefits li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+    }
+
+    .vip-card__benefits li::before {
+      content: '✦';
+      flex-shrink: 0;
+      color: var(--accent);
+      font-size: 0.7rem;
+      margin-top: 3px;
+    }
+
+    .vip-card__benefits .benefit-highlight {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    /* Botão de compra */
+    .vip-card__btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--bg-primary);
+      background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent), #fff 20%));
+      transition:
+        transform var(--transition-fast),
+        box-shadow var(--transition-fast),
+        filter var(--transition-fast);
+    }
+
+    .vip-card__btn:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 30px -8px var(--accent);
+      filter: brightness(1.1);
+    }
+
+    .vip-card__btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ================================================================
+       MODAL DE COMPRA
+    ================================================================ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-modal-overlay);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      padding: 24px;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      background: var(--bg-modal);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      padding: 40px 32px 32px;
+      transform: translateY(30px) scale(0.95);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 25px 80px -20px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-overlay.active .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    /* Botão fechar */
+    .modal__close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-card);
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background var(--transition-fast), color var(--transition-fast);
+    }
+
+    .modal__close:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: var(--text-primary);
+    }
+
+    .modal__icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+    }
+
+    .modal__title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .modal__desc {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal__desc strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    /* Caixa da chave Pix */
+    .modal__pix-box {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .modal__pix-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+
+    .modal__pix-key {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--senju);
+      letter-spacing: 1px;
+      user-select: all;
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+
+    .modal__pix-key:hover {
+      color: #6ee7b7;
+    }
+
+    .modal__copy-hint {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Aviso importante */
+    .modal__warning {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      background: rgba(245, 158, 11, 0.08);
+      border: 1px solid rgba(245, 158, 11, 0.18);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 24px;
+    }
+
+    .modal__warning-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .modal__warning-text {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .modal__warning-text strong {
+      color: var(--kage);
+      font-weight: 700;
+    }
+
+    /* Botão copiar */
+    .modal__copy-btn {
+      width: 100%;
+      padding: 14px;
+      border: none;
+      border-radius: 12px;
+      font-family: var(--font-main);
+      font-size: 0.9rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--bg-primary);
+      background: linear-gradient(135deg, var(--senju), #6ee7b7);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    }
+
+    .modal__copy-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 8px 30px -8px var(--senju);
+    }
+
+    .modal__copy-btn:active {
+      transform: scale(0.98);
+    }
+
+    /* ================================================================
+       FOOTER
+    ================================================================ */
+    .footer {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      padding: 32px 24px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .footer__text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    .footer__text span {
+      color: var(--text-secondary);
+      font-weight: 600;
+    }
+
+    /* ================================================================
+       ANIMAÇÕES DE ENTRADA
+    ================================================================ */
+    .vip-card {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: card-enter 0.7s ease forwards;
+    }
+
+    .vip-card:nth-child(1) { animation-delay: 0.1s; }
+    .vip-card:nth-child(2) { animation-delay: 0.2s; }
+    .vip-card:nth-child(3) { animation-delay: 0.3s; }
+    .vip-card:nth-child(4) { animation-delay: 0.4s; }
+    .vip-card:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes card-enter {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ================================================================
+       RESPONSIVIDADE
+    ================================================================ */
+    @media (max-width: 768px) {
+      .hero {
+        padding: 60px 20px 30px;
+      }
+
+      .vip-section {
+        padding: 30px 16px 60px;
+      }
+
+      .vip-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .vip-card {
+        max-width: 100%;
+      }
+
+      .modal {
+        padding: 32px 24px 24px;
+      }
+
+      .modal__pix-key {
+        font-size: 1.15rem;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .hero__title {
+        font-size: 2rem;
+      }
+
+      .vip-card {
+        padding: 24px 20px 22px;
+      }
+    }
+
+    /* ================================================================
+       SCROLLBAR CUSTOMIZADA
+    ================================================================ */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--text-muted);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-secondary);
+    }
+
+    /* Toast / feedback de cópia */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--senju);
+      color: var(--bg-primary);
+      padding: 10px 24px;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.35s ease;
+      z-index: 2000;
+      pointer-events: none;
+    }
+
+    .toast.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+  <!-- ============================
+       BACKGROUND AMBIENCE
+  ============================= -->
+  <div class="bg-ambience" aria-hidden="true"></div>
+
+  <!-- ============================
+       HERO / HEADER
+  ============================= -->
+  <header class="hero">
+    <div class="hero__badge">🔥 Servidor Online</div>
+    <h1 class="hero__title">Nindo Craft Shinobi War</h1>
+    <p class="hero__subtitle">
+      Desbloqueie vantagens exclusivas e domine o campo de batalha com nossos pacotes VIP.
+    </p>
+    <div class="hero__divider">
+      <span></span>
+      <div class="hero__divider-icon">忍</div>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- ============================
+       SEÇÃO DE CARDS VIP
+  ============================= -->
+  <main class="vip-section">
+    <div class="vip-grid">
+
+      <!-- ===== VIP HYUUGA ===== -->
+      <article class="vip-card vip-card--hyuuga">
+        <div class="vip-card__icon">👁️</div>
+        <span class="vip-card__tier">Tier I</span>
+        <h2 class="vip-card__name">VIP Hyuuga</h2>
+        <div class="vip-card__price">R$ 10<small>,00</small></div>
+        <ul class="vip-card__benefits">
+          <li>+5 Giros</li>
+          <li>2x Pack de Bife</li>
+          <li>2.500 Ryo</li>
+          <li>Espada Encantada AI</li>
+          <li>Armadura Encantada PI</li>
+        </ul>
+        <button
+          class="vip-card__btn"
+          id="btn-hyuuga"
+          onclick="openModal('VIP Hyuuga', 'R$ 10,00')"
+        >
+          Comprar ⟶
+        </button>
+      </article>
+
+      <!-- ===== VIP SENJU ===== -->
+      <article class="vip-card vip-card--senju">
+        <div class="vip-card__icon">🌿</div>
+        <span class="vip-card__tier">Tier II</span>
+        <h2 class="vip-card__name">VIP Senju</h2>
+        <div class="vip-card__price">R$ 15<small>,00</small></div>
+        <ul class="vip-card__benefits">
+          <li>10 Giros Exclusivos</li>
+          <li>4x Pack de Bife</li>
+          <li>5.000 Ryo</li>
+          <li>Cosmético Especial de Arma</li>
+          <li>Espada Encantada P2</li>
+          <li>Armadura Encantada A2</li>
+        </ul>
+        <button
+          class="vip-card__btn"
+          id="btn-senju"
+          onclick="openModal('VIP Senju', 'R$ 15,00')"
+        >
+          Comprar ⟶
+        </button>
+      </article>
+
+      <!-- ===== VIP UCHIHA ===== -->
+      <article class="vip-card vip-card--uchiha">
+        <div class="vip-card__icon">🔥</div>
+        <span class="vip-card__tier">Tier III</span>
+        <h2 class="vip-card__name">VIP Uchiha</h2>
+        <div class="vip-card__price">R$ 30<small>,00</small></div>
+        <ul class="vip-card__benefits">
+          <li>15 Giros Exclusivos</li>
+          <li>8x Pack de Bife</li>
+          <li>10.000 Ryo</li>
+          <li>Cosmético Especial de Arma</li>
+          <li>Espada Encantada P2</li>
+          <li>Armadura Encantada A2</li>
+          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
+        </ul>
+        <button
+          class="vip-card__btn"
+          id="btn-uchiha"
+          onclick="openModal('VIP Uchiha', 'R$ 30,00')"
+        >
+          Comprar ⟶
+        </button>
+      </article>
+
+      <!-- ===== VIP OTSUTSUKI ===== -->
+      <article class="vip-card vip-card--otsutsuki">
+        <div class="vip-card__icon">🌙</div>
+        <span class="vip-card__tier">Tier IV</span>
+        <h2 class="vip-card__name">VIP Otsutsuki</h2>
+        <div class="vip-card__price">R$ 50<small>,00</small></div>
+        <ul class="vip-card__benefits">
+          <li>20 Giros Insanos</li>
+          <li>16x Packs de Bife</li>
+          <li>20.000 Ryo</li>
+          <li>Cosmético de Roupa</li>
+          <li>Cosmético de Arma</li>
+          <li>Espada Encantada A3</li>
+          <li>Armadura Encantada P3</li>
+          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
+        </ul>
+        <button
+          class="vip-card__btn"
+          id="btn-otsutsuki"
+          onclick="openModal('VIP Otsutsuki', 'R$ 50,00')"
+        >
+          Comprar ⟶
+        </button>
+      </article>
+
+      <!-- ===== VIP KAGE ===== -->
+      <article class="vip-card vip-card--kage">
+        <div class="vip-card__icon">👑</div>
+        <span class="vip-card__tier">Tier V — Supremo</span>
+        <h2 class="vip-card__name">VIP Kage</h2>
+        <div class="vip-card__price">R$ 70<small>,00</small></div>
+        <ul class="vip-card__benefits">
+          <li>25 Giros Insanos</li>
+          <li>17x Packs de Bife</li>
+          <li>50.000 Ryo</li>
+          <li>Cosmético de Roupa</li>
+          <li>Cosmético de Arma</li>
+          <li>Espada Encantada A3</li>
+          <li>Armadura Encantada P3</li>
+          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
+        </ul>
+        <button
+          class="vip-card__btn"
+          id="btn-kage"
+          onclick="openModal('VIP Kage', 'R$ 70,00')"
+        >
+          Comprar ⟶
+        </button>
+      </article>
+
+    </div>
+  </main>
+
+  <!-- ============================
+       MODAL DE COMPRA (PIX)
+  ============================= -->
+  <div class="modal-overlay" id="modal-overlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-labelledby="modal-title">
+      <button class="modal__close" id="modal-close" aria-label="Fechar modal">✕</button>
+
+      <div class="modal__icon">💳</div>
+      <h3 class="modal__title" id="modal-title">Pagamento via Pix</h3>
+      <p class="modal__desc" id="modal-desc">
+        <!-- Preenchido via JavaScript -->
+      </p>
+
+      <!-- Chave Pix -->
+      <div class="modal__pix-box">
+        <div class="modal__pix-label">Chave Pix (Celular)</div>
+        <div class="modal__pix-key" id="pix-key" title="Clique para copiar">34991121063</div>
+        <div class="modal__copy-hint">Clique na chave para copiar</div>
+      </div>
+
+      <!-- Aviso -->
+      <div class="modal__warning">
+        <div class="modal__warning-icon">⚠️</div>
+        <div class="modal__warning-text">
+          <strong>IMPORTANTE:</strong> Após efetuar o pagamento, mande o comprovante no canal
+          <strong>#tickets-compra</strong> no nosso Discord para receber seu VIP.
+        </div>
+      </div>
+
+      <!-- Botão copiar chave -->
+      <button class="modal__copy-btn" id="copy-btn" onclick="copyPixKey()">
+        📋 Copiar Chave Pix
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast de feedback -->
+  <div class="toast" id="toast">✅ Chave Pix copiada!</div>
+
+  <!-- ============================
+       FOOTER
+  ============================= -->
+  <footer class="footer">
+    <p class="footer__text">
+      © 2026 <span>Nindo Craft Shinobi War</span> — Todos os direitos reservados.
+    </p>
+  </footer>
+
+  <!-- ============================
+       JAVASCRIPT
+  ============================= -->
+  <script>
+    // ================================================================
+    //  REFERÊNCIAS AO DOM
+    // ================================================================
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalDesc    = document.getElementById('modal-desc');
+    const modalClose   = document.getElementById('modal-close');
+    const pixKeyEl     = document.getElementById('pix-key');
+    const toast        = document.getElementById('toast');
+
+    // ================================================================
+    //  ABRIR MODAL — recebe o nome e valor do pacote
+    // ================================================================
+    function openModal(packageName, packageValue) {
+      // Atualiza o texto dinâmico
+      modalDesc.innerHTML =
+        `Você selecionou o pacote <strong>${packageName}</strong> no valor de <strong>${packageValue}</strong>.`;
+
+      // Exibe o modal
+      modalOverlay.classList.add('active');
+      modalOverlay.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden'; // trava scroll do fundo
+    }
+
+    // ================================================================
+    //  FECHAR MODAL
+    // ================================================================
+    function closeModal() {
+      modalOverlay.classList.remove('active');
+      modalOverlay.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = ''; // libera scroll
+    }
+
+    // Fecha pelo botão "X"
+    modalClose.addEventListener('click', closeModal);
+
+    // Fecha clicando fora do modal (no overlay)
+    modalOverlay.addEventListener('click', function (e) {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    // Fecha ao pressionar Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    // ================================================================
+    //  COPIAR CHAVE PIX
+    // ================================================================
+    function copyPixKey() {
+      const key = pixKeyEl.textContent.trim();
+
+      navigator.clipboard.writeText(key).then(function () {
+        showToast();
+      }).catch(function () {
+        // Fallback para navegadores mais antigos
+        const textarea = document.createElement('textarea');
+        textarea.value = key;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textarea);
+        showToast();
+      });
+    }
+
+    // Copiar ao clicar diretamente na chave
+    pixKeyEl.addEventListener('click', copyPixKey);
+
+    // ================================================================
+    //  TOAST DE FEEDBACK
+    // ================================================================
+    function showToast() {
+      toast.classList.add('show');
+      setTimeout(function () {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+  </script>
+</body>
+</html>
