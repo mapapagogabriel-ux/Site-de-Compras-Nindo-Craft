@@ -42,11 +42,11 @@
       --border-card: rgba(255, 255, 255, 0.08);
 
       /* Cores dos VIPs */
-      --hyuuga: #c8c8e0;
-      --senju: #34d399;
-      --uchiha: #f43f5e;
-      --otsutsuki: #a78bfa;
-      --kage: #f59e0b;
+      --hagoromo: #e2e8f0;    /* Prata/Branco */
+      --rikudou: #a855f7;     /* Roxo */
+      --indra: #3b82f6;       /* Azul */
+      --ashura: #10b981;      /* Verde */
+      --patrocinador: #fbbf24; /* Dourado */
 
       /* Tipografia */
       --font-main: 'Outfit', sans-serif;
@@ -71,7 +71,7 @@
     }
 
     /* ================================================================
-       BACKGROUND AMBIENCE — partículas animadas
+       BACKGROUND AMBIENCE
     ================================================================ */
     .bg-ambience {
       position: fixed;
@@ -81,25 +81,26 @@
       overflow: hidden;
     }
 
-    .bg-ambience::before {
+    .bg-ambience::before, .bg-ambience::after {
       content: '';
       position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+    }
+
+    .bg-ambience::before {
       width: 600px;
       height: 600px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(167, 139, 250, 0.08) 0%, transparent 70%);
+      background: rgba(168, 85, 247, 0.06); /* Rikudou roxo base */
       top: -200px;
       left: -100px;
       animation: float-orb 18s ease-in-out infinite alternate;
     }
 
     .bg-ambience::after {
-      content: '';
-      position: absolute;
       width: 500px;
       height: 500px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(244, 63, 94, 0.06) 0%, transparent 70%);
+      background: rgba(59, 130, 246, 0.05); /* Indra azul base */
       bottom: -150px;
       right: -100px;
       animation: float-orb 22s ease-in-out infinite alternate-reverse;
@@ -128,8 +129,8 @@
       padding: 6px 18px;
       border-radius: 100px;
       border: 1px solid var(--border-card);
-      background: rgba(167, 139, 250, 0.08);
-      color: var(--otsutsuki);
+      background: rgba(251, 191, 36, 0.08);
+      color: var(--patrocinador);
       font-size: 0.8rem;
       font-weight: 600;
       letter-spacing: 1.5px;
@@ -139,8 +140,8 @@
     }
 
     @keyframes badge-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(167, 139, 250, 0.25); }
-      50%      { box-shadow: 0 0 20px 4px rgba(167, 139, 250, 0.12); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.25); }
+      50%      { box-shadow: 0 0 20px 4px rgba(251, 191, 36, 0.12); }
     }
 
     .hero__title {
@@ -149,7 +150,7 @@
       line-height: 1.1;
       letter-spacing: -1.5px;
       margin-bottom: 16px;
-      background: linear-gradient(135deg, var(--text-primary) 0%, var(--otsutsuki) 50%, var(--uchiha) 100%);
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--rikudou) 50%, var(--indra) 100%);
       background-size: 200% 200%;
       -webkit-background-clip: text;
       background-clip: text;
@@ -170,7 +171,7 @@
       margin: 0 auto;
     }
 
-    /* Linha decorativa kanji-style */
+    /* Linha decorativa */
     .hero__divider {
       display: flex;
       align-items: center;
@@ -198,37 +199,34 @@
     .vip-section {
       position: relative;
       z-index: 1;
-      max-width: 1280px;
+      max-width: 1400px;
       margin: 0 auto;
       padding: 40px 24px 80px;
     }
 
     .vip-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      justify-items: center;
+      /* Grid responsivo para alinhar os 4 primeiros pacotes em 2 linhas de 2 (no desktop) */
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 28px;
+      align-items: stretch;
     }
 
     /* ================================================================
        CARD VIP — Base
     ================================================================ */
     .vip-card {
-      --accent: var(--hyuuga);
+      --accent: var(--hagoromo);
       position: relative;
-      width: 100%;
-      max-width: 340px;
       background: var(--bg-card);
       border: 1px solid var(--border-card);
       border-radius: 20px;
       padding: 32px 28px 28px;
       display: flex;
       flex-direction: column;
-      transition:
-        transform var(--transition-smooth),
-        box-shadow var(--transition-smooth),
-        border-color var(--transition-smooth);
+      transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth);
       overflow: hidden;
+      height: 100%;
     }
 
     /* Brilho gradient no topo do card */
@@ -252,7 +250,7 @@
       left: -50%;
       width: 200%;
       height: 200%;
-      background: radial-gradient(ellipse at center, var(--accent), transparent 70%);
+      background: radial-gradient(ellipse at center, var(--accent), transparent 60%);
       opacity: 0;
       transition: opacity 0.6s ease;
       pointer-events: none;
@@ -260,35 +258,49 @@
     }
 
     .vip-card:hover {
-      transform: translateY(-8px);
+      transform: translateY(-6px);
       border-color: rgba(255, 255, 255, 0.12);
-      box-shadow:
-        0 20px 60px -15px rgba(0, 0, 0, 0.5),
-        0 0 40px -10px var(--accent);
+      box-shadow: 0 20px 50px -15px rgba(0, 0, 0, 0.5), 0 0 30px -10px var(--accent);
     }
 
-    .vip-card:hover::before {
-      opacity: 1;
-      height: 4px;
+    .vip-card:hover::before { opacity: 1; height: 4px; }
+    .vip-card:hover::after { opacity: 0.05; }
+
+    /* Cores */
+    .vip-card--hagoromo   { --accent: var(--hagoromo); }
+    .vip-card--rikudou    { --accent: var(--rikudou); }
+    .vip-card--indra      { --accent: var(--indra); }
+    .vip-card--ashura     { --accent: var(--ashura); }
+    .vip-card--patrocinador { 
+      --accent: var(--patrocinador); 
+      /* Card do patrocinador fica em destaque ocupando toda a linha no desktop */
+      grid-column: 1 / -1; 
+      background: linear-gradient(180deg, var(--bg-card) 0%, rgba(251, 191, 36, 0.03) 100%);
+      border: 1px solid rgba(251, 191, 36, 0.2);
     }
 
-    .vip-card:hover::after {
-      opacity: 0.04;
+    /* Customização do card Patrocinador para ter grid interno em telas grandes */
+    @media (min-width: 900px) {
+      .vip-card--patrocinador .vip-card__content-wrapper {
+        display: grid;
+        grid-template-columns: 1fr 1.5fr;
+        gap: 40px;
+        align-items: start;
+      }
     }
 
-    /* Variantes de cor */
-    .vip-card--hyuuga   { --accent: var(--hyuuga); }
-    .vip-card--senju    { --accent: var(--senju); }
-    .vip-card--uchiha   { --accent: var(--uchiha); }
-    .vip-card--otsutsuki { --accent: var(--otsutsuki); }
-    .vip-card--kage     { --accent: var(--kage); }
+    .vip-card--patrocinador:hover {
+      border-color: rgba(251, 191, 36, 0.5);
+      box-shadow: 0 20px 60px -10px rgba(0, 0, 0, 0.6), 0 0 40px -10px var(--accent);
+    }
 
     /* ================================================================
        CARD VIP — Conteúdo interno
     ================================================================ */
     .vip-card__icon {
-      font-size: 2rem;
+      font-size: 2.5rem;
       margin-bottom: 12px;
+      text-shadow: 0 0 20px var(--accent);
     }
 
     .vip-card__tier {
@@ -306,34 +318,75 @@
     }
 
     .vip-card__name {
-      font-size: 1.6rem;
+      font-size: 1.8rem;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--text-primary);
-      margin-bottom: 4px;
+      margin-bottom: 8px;
+    }
+
+    .vip-card__desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 20px;
+      font-style: italic;
+      line-height: 1.4;
+      border-left: 2px solid var(--accent);
+      padding-left: 12px;
     }
 
     .vip-card__price {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 800;
       color: var(--accent);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
     }
 
     .vip-card__price small {
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       font-weight: 500;
       color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
-    /* Lista de benefícios */
+    /* Benefícios divididos em categorias */
+    .benefits-group {
+      margin-bottom: 20px;
+    }
+    
+    .benefits-group:last-of-type {
+      margin-bottom: 30px;
+      flex-grow: 1; /* Empurra o botão para baixo */
+    }
+
+    .benefits-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .benefits-title::after {
+      content: '';
+      flex-grow: 1;
+      height: 1px;
+      background: var(--border-subtle);
+    }
+
     .vip-card__benefits {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 10px;
-      margin-bottom: 28px;
-      flex-grow: 1;
     }
 
     .vip-card__benefits li {
@@ -342,21 +395,39 @@
       gap: 10px;
       font-size: 0.88rem;
       color: var(--text-secondary);
-      line-height: 1.45;
+      line-height: 1.4;
     }
 
-    .vip-card__benefits li::before {
-      content: '✦';
+    .vip-card__benefits li i {
       flex-shrink: 0;
       color: var(--accent);
-      font-size: 0.7rem;
-      margin-top: 3px;
+      font-style: normal;
+      margin-top: 2px;
     }
 
-    .vip-card__benefits .benefit-highlight {
+    .vip-card__benefits strong {
+      color: var(--text-primary);
+    }
+
+    .highlight-text {
       color: var(--accent);
       font-weight: 600;
     }
+
+    /* Aviso de Cooldown do Kit */
+    .kit-rule {
+      font-size: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px dashed var(--border-subtle);
+      color: var(--text-muted);
+      margin-top: 12px;
+      display: flex;
+      gap: 8px;
+    }
+    
+    .kit-rule span { color: var(--accent); }
 
     /* Botão de compra */
     .vip-card__btn {
@@ -365,24 +436,22 @@
       justify-content: center;
       gap: 8px;
       width: 100%;
-      padding: 14px;
+      padding: 16px;
       border: none;
       border-radius: 12px;
       font-family: var(--font-main);
-      font-size: 0.95rem;
+      font-size: 1rem;
       font-weight: 700;
       cursor: pointer;
       color: var(--bg-primary);
-      background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent), #fff 20%));
-      transition:
-        transform var(--transition-fast),
-        box-shadow var(--transition-fast),
-        filter var(--transition-fast);
+      background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent), #fff 30%));
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast), filter var(--transition-fast);
+      margin-top: auto;
     }
 
     .vip-card__btn:hover {
-      transform: scale(1.03);
-      box-shadow: 0 8px 30px -8px var(--accent);
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px -8px var(--accent);
       filter: brightness(1.1);
     }
 
@@ -417,7 +486,7 @@
     .modal {
       position: relative;
       width: 100%;
-      max-width: 480px;
+      max-width: 500px;
       background: var(--bg-modal);
       border: 1px solid var(--border-card);
       border-radius: 24px;
@@ -425,13 +494,14 @@
       transform: translateY(30px) scale(0.95);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
       box-shadow: 0 25px 80px -20px rgba(0, 0, 0, 0.6);
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-overlay.active .modal {
       transform: translateY(0) scale(1);
     }
 
-    /* Botão fechar */
     .modal__close {
       position: absolute;
       top: 16px;
@@ -478,7 +548,6 @@
       font-weight: 600;
     }
 
-    /* Caixa da chave Pix */
     .modal__pix-box {
       background: rgba(255, 255, 255, 0.04);
       border: 1px dashed rgba(255, 255, 255, 0.12);
@@ -499,17 +568,18 @@
 
     .modal__pix-key {
       font-family: var(--font-mono);
-      font-size: 1.4rem;
+      font-size: 1.1rem;
       font-weight: 600;
-      color: var(--senju);
+      color: var(--rikudou);
       letter-spacing: 1px;
       user-select: all;
       cursor: pointer;
       transition: color var(--transition-fast);
+      word-break: break-all;
     }
 
     .modal__pix-key:hover {
-      color: #6ee7b7;
+      color: #d8b4fe;
     }
 
     .modal__copy-hint {
@@ -518,16 +588,21 @@
       margin-top: 6px;
     }
 
-    /* Aviso importante */
     .modal__warning {
       display: flex;
+      flex-direction: column;
       gap: 12px;
-      align-items: flex-start;
       background: rgba(245, 158, 11, 0.08);
       border: 1px solid rgba(245, 158, 11, 0.18);
       border-radius: 14px;
       padding: 16px 18px;
       margin-bottom: 24px;
+    }
+
+    .warning-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
     }
 
     .modal__warning-icon {
@@ -543,28 +618,27 @@
     }
 
     .modal__warning-text strong {
-      color: var(--kage);
+      color: var(--patrocinador);
       font-weight: 700;
     }
 
-    /* Botão copiar */
     .modal__copy-btn {
       width: 100%;
       padding: 14px;
       border: none;
       border-radius: 12px;
       font-family: var(--font-main);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       font-weight: 700;
       cursor: pointer;
       color: var(--bg-primary);
-      background: linear-gradient(135deg, var(--senju), #6ee7b7);
+      background: linear-gradient(135deg, var(--rikudou), #d8b4fe);
       transition: transform var(--transition-fast), box-shadow var(--transition-fast);
     }
 
     .modal__copy-btn:hover {
       transform: scale(1.02);
-      box-shadow: 0 8px 30px -8px var(--senju);
+      box-shadow: 0 8px 30px -8px var(--rikudou);
     }
 
     .modal__copy-btn:active {
@@ -594,7 +668,7 @@
     }
 
     /* ================================================================
-       ANIMAÇÕES DE ENTRADA
+       ANIMAÇÕES DE ENTRADA E TOAST
     ================================================================ */
     .vip-card {
       opacity: 0;
@@ -609,79 +683,15 @@
     .vip-card:nth-child(5) { animation-delay: 0.5s; }
 
     @keyframes card-enter {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ================================================================
-       RESPONSIVIDADE
-    ================================================================ */
-    @media (max-width: 768px) {
-      .hero {
-        padding: 60px 20px 30px;
-      }
-
-      .vip-section {
-        padding: 30px 16px 60px;
-      }
-
-      .vip-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-      }
-
-      .vip-card {
-        max-width: 100%;
-      }
-
-      .modal {
-        padding: 32px 24px 24px;
-      }
-
-      .modal__pix-key {
-        font-size: 1.15rem;
-      }
-    }
-
-    @media (max-width: 400px) {
-      .hero__title {
-        font-size: 2rem;
-      }
-
-      .vip-card {
-        padding: 24px 20px 22px;
-      }
-    }
-
-    /* ================================================================
-       SCROLLBAR CUSTOMIZADA
-    ================================================================ */
-    ::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: var(--bg-primary);
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: var(--text-muted);
-      border-radius: 10px;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      background: var(--text-secondary);
-    }
-
-    /* Toast / feedback de cópia */
     .toast {
       position: fixed;
       bottom: 30px;
       left: 50%;
       transform: translateX(-50%) translateY(20px);
-      background: var(--senju);
+      background: var(--rikudou);
       color: var(--bg-primary);
       padding: 10px 24px;
       border-radius: 10px;
@@ -699,23 +709,25 @@
       visibility: visible;
       transform: translateX(-50%) translateY(0);
     }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-primary); }
+    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
   </style>
 </head>
 
 <body>
-  <!-- ============================
-       BACKGROUND AMBIENCE
-  ============================= -->
   <div class="bg-ambience" aria-hidden="true"></div>
 
-  <!-- ============================
-       HERO / HEADER
-  ============================= -->
   <header class="hero">
     <div class="hero__badge">🔥 Servidor Online</div>
     <h1 class="hero__title">Nindo Craft Shinobi War</h1>
     <p class="hero__subtitle">
-      Desbloqueie vantagens exclusivas e domine o campo de batalha com nossos pacotes VIP.
+      Desbloqueie vantagens exclusivas e domine o campo de batalha com nossos pacotes VIP. 
+      Todo o apoio ajuda a manter o servidor sem lag!
     </p>
     <div class="hero__divider">
       <span></span>
@@ -724,129 +736,188 @@
     </div>
   </header>
 
-  <!-- ============================
-       SEÇÃO DE CARDS VIP
-  ============================= -->
   <main class="vip-section">
     <div class="vip-grid">
 
-      <!-- ===== VIP HYUUGA ===== -->
-      <article class="vip-card vip-card--hyuuga">
-        <div class="vip-card__icon">👁️</div>
+      <!-- ===== VIP HAGOROMO ===== -->
+      <article class="vip-card vip-card--hagoromo">
+        <div class="vip-card__icon">🌟</div>
         <span class="vip-card__tier">Tier I</span>
-        <h2 class="vip-card__name">VIP Hyuuga</h2>
+        <h2 class="vip-card__name">VIP Hagoromo</h2>
+        <p class="vip-card__desc">« Desperte o poder do ancestral dos shinobis. Ideal para quem busca ascender rapidamente! »</p>
         <div class="vip-card__price">R$ 10<small>,00</small></div>
-        <ul class="vip-card__benefits">
-          <li>+5 Giros</li>
-          <li>2x Pack de Bife</li>
-          <li>2.500 Ryo</li>
-          <li>Espada Encantada AI</li>
-          <li>Armadura Encantada PI</li>
-        </ul>
-        <button
-          class="vip-card__btn"
-          id="btn-hyuuga"
-          onclick="openModal('VIP Hyuuga', 'R$ 10,00')"
-        >
-          Comprar ⟶
-        </button>
+        
+        <div class="benefits-group">
+          <div class="benefits-title">⚜️ Vantagens</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> Entrada VIP: <strong>WL Automática e Garantida</strong>.</li>
+            <li><i>✦</i> Cargo exclusivo <strong>[VIP Hagoromo]</strong> no Discord e In-game.</li>
+            <li><i>✦</i> Acesso à Área Restrita de apoiadores.</li>
+          </ul>
+        </div>
+
+        <div class="benefits-group">
+          <div class="benefits-title">🗡️ Kit In-Game</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <strong>5x Giros</strong> Sorte Ninja (Apenas 1x).</li>
+            <li><i>✦</i> <strong>2.500 Ryō</strong> diretos na sua conta.</li>
+            <li><i>✦</i> Espada Encantada <strong>(AI)</strong> + Armadura <strong>(PI)</strong>.</li>
+            <li><i>✦</i> <strong>2x Packs de Bife</strong>.</li>
+          </ul>
+          <div class="kit-rule">
+            <span>⏱️</span> Armas, Ryō e Comida podem ser resgatados a cada 24 horas!
+          </div>
+        </div>
+
+        <button class="vip-card__btn" onclick="openModal('VIP Hagoromo', 'R$ 10,00')">Adquirir ⟶</button>
       </article>
 
-      <!-- ===== VIP SENJU ===== -->
-      <article class="vip-card vip-card--senju">
-        <div class="vip-card__icon">🌿</div>
+      <!-- ===== VIP RIKUDOU ===== -->
+      <article class="vip-card vip-card--rikudou">
+        <div class="vip-card__icon">☯️</div>
         <span class="vip-card__tier">Tier II</span>
-        <h2 class="vip-card__name">VIP Senju</h2>
+        <h2 class="vip-card__name">VIP Rikudou</h2>
+        <p class="vip-card__desc">« Domine o chakra dos Seis Caminhos! Controle absoluto e poder bélico avançado. »</p>
         <div class="vip-card__price">R$ 15<small>,00</small></div>
-        <ul class="vip-card__benefits">
-          <li>10 Giros Exclusivos</li>
-          <li>4x Pack de Bife</li>
-          <li>5.000 Ryo</li>
-          <li>Cosmético Especial de Arma</li>
-          <li>Espada Encantada P2</li>
-          <li>Armadura Encantada A2</li>
-        </ul>
-        <button
-          class="vip-card__btn"
-          id="btn-senju"
-          onclick="openModal('VIP Senju', 'R$ 15,00')"
-        >
-          Comprar ⟶
-        </button>
+        
+        <div class="benefits-group">
+          <div class="benefits-title">🌐 Vantagens & Sistemas</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <strong>WL Garantida e Acesso Prioritário</strong>.</li>
+            <li><i>✦</i> Comando <strong>/enderchest</strong> vitalício em qualquer lugar!</li>
+            <li><i>✦</i> Cargo e cor exclusiva <strong>[VIP Rikudou]</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="benefits-group">
+          <div class="benefits-title">📦 Kit In-Game</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <strong>10x Giros Exclusivos</strong> (Apenas 1x).</li>
+            <li><i>✦</i> <strong>1x Cosmético Especial de Arma</strong>.</li>
+            <li><i>✦</i> <strong>5.000 Ryō</strong> diretos na conta.</li>
+            <li><i>✦</i> Espada Encantada <strong>(P2)</strong> + Armadura <strong>(A2)</strong>.</li>
+            <li><i>✦</i> <strong>4x Packs de Bife</strong>.</li>
+          </ul>
+          <div class="kit-rule">
+            <span>⏱️</span> Armas, Ryō e Comida resetam a cada 24 horas!
+          </div>
+        </div>
+
+        <button class="vip-card__btn" onclick="openModal('VIP Rikudou', 'R$ 15,00')">Adquirir ⟶</button>
       </article>
 
-      <!-- ===== VIP UCHIHA ===== -->
-      <article class="vip-card vip-card--uchiha">
-        <div class="vip-card__icon">🔥</div>
+      <!-- ===== VIP INDRA ===== -->
+      <article class="vip-card vip-card--indra">
+        <div class="vip-card__icon">⚡</div>
         <span class="vip-card__tier">Tier III</span>
-        <h2 class="vip-card__name">VIP Uchiha</h2>
+        <h2 class="vip-card__name">VIP Indra</h2>
+        <p class="vip-card__desc">« Herde o talento prodigioso do ancestral dos Uchiha com poderes passivos de elite. »</p>
         <div class="vip-card__price">R$ 30<small>,00</small></div>
-        <ul class="vip-card__benefits">
-          <li>15 Giros Exclusivos</li>
-          <li>8x Pack de Bife</li>
-          <li>10.000 Ryo</li>
-          <li>Cosmético Especial de Arma</li>
-          <li>Espada Encantada P2</li>
-          <li>Armadura Encantada A2</li>
-          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
-        </ul>
-        <button
-          class="vip-card__btn"
-          id="btn-uchiha"
-          onclick="openModal('VIP Uchiha', 'R$ 30,00')"
-        >
-          Comprar ⟶
-        </button>
+        
+        <div class="benefits-group">
+          <div class="benefits-title">🌐 Vantagens & Sistemas</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <span class="highlight-text">Imunidade TOTAL a dano de queda!</span></li>
+            <li><i>✦</i> <strong>WL Garantida e Acesso Prioritário</strong>.</li>
+            <li><i>✦</i> Comando <strong>/ec</strong> vitalício.</li>
+            <li><i>✦</i> Prefix exclusivo <strong>[VIP Indra]</strong> no Tab e Chat.</li>
+          </ul>
+        </div>
+
+        <div class="benefits-group">
+          <div class="benefits-title">📦 Kit In-Game</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <strong>15x Giros Exclusivos</strong> (Apenas 1x).</li>
+            <li><i>✦</i> <strong>1x Cosmético Especial de Arma</strong>.</li>
+            <li><i>✦</i> <strong>10.000 Ryō</strong> diretos na conta.</li>
+            <li><i>✦</i> Espada Encantada <strong>(P2)</strong> + Armadura <strong>(A2)</strong>.</li>
+            <li><i>✦</i> <strong>8x Packs de Bife</strong>.</li>
+          </ul>
+          <div class="kit-rule">
+            <span>⏱️</span> Armas, Ryō e Comida resetam a cada 24 horas!
+          </div>
+        </div>
+
+        <button class="vip-card__btn" onclick="openModal('VIP Indra', 'R$ 30,00')">Adquirir ⟶</button>
       </article>
 
-      <!-- ===== VIP OTSUTSUKI ===== -->
-      <article class="vip-card vip-card--otsutsuki">
-        <div class="vip-card__icon">🌙</div>
+      <!-- ===== VIP ASHURA ===== -->
+      <article class="vip-card vip-card--ashura">
+        <div class="vip-card__icon">🌿</div>
         <span class="vip-card__tier">Tier IV</span>
-        <h2 class="vip-card__name">VIP Otsutsuki</h2>
+        <h2 class="vip-card__name">VIP Ashura</h2>
+        <p class="vip-card__desc">« Incorpore a força vital inabalável! Utilidades únicas de sobrevivência e massivos recursos. »</p>
         <div class="vip-card__price">R$ 50<small>,00</small></div>
-        <ul class="vip-card__benefits">
-          <li>20 Giros Insanos</li>
-          <li>16x Packs de Bife</li>
-          <li>20.000 Ryo</li>
-          <li>Cosmético de Roupa</li>
-          <li>Cosmético de Arma</li>
-          <li>Espada Encantada A3</li>
-          <li>Armadura Encantada P3</li>
-          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
-        </ul>
-        <button
-          class="vip-card__btn"
-          id="btn-otsutsuki"
-          onclick="openModal('VIP Otsutsuki', 'R$ 50,00')"
-        >
-          Comprar ⟶
-        </button>
+        
+        <div class="benefits-group">
+          <div class="benefits-title">🌐 Vantagens & Sistemas</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <span class="highlight-text">Mesa de Trabalho Portátil</span> em qualquer lugar!</li>
+            <li><i>✦</i> <span class="highlight-text">Food VIP:</span> Acesso ao menu especial [/kits].</li>
+            <li><i>✦</i> <strong>WL Garantida e Acesso Prioritário</strong>.</li>
+            <li><i>✦</i> Comando <strong>/ec</strong> vitalício.</li>
+            <li><i>✦</i> Cargo e Tag exclusiva <strong>[VIP Ashura]</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="benefits-group">
+          <div class="benefits-title">📦 Kit In-Game</div>
+          <ul class="vip-card__benefits">
+            <li><i>✦</i> <strong>20x Giros Insanos</strong> (Apenas 1x).</li>
+            <li><i>✦</i> <strong>1x Cosmético de Roupa</strong> + <strong>1x Arma</strong>.</li>
+            <li><i>✦</i> <strong>20.000 Ryō</strong> diretos na conta.</li>
+            <li><i>✦</i> Espada Encantada <strong>(A3)</strong> + Armadura <strong>(P3)</strong>.</li>
+            <li><i>✦</i> <strong>16x Packs de Bife</strong>.</li>
+          </ul>
+          <div class="kit-rule">
+            <span>⏱️</span> Armas, Ryō, Comida e Food VIP resetam a cada 24 horas!
+          </div>
+        </div>
+
+        <button class="vip-card__btn" onclick="openModal('VIP Ashura', 'R$ 50,00')">Adquirir ⟶</button>
       </article>
 
-      <!-- ===== VIP KAGE ===== -->
-      <article class="vip-card vip-card--kage">
-        <div class="vip-card__icon">👑</div>
-        <span class="vip-card__tier">Tier V — Supremo</span>
-        <h2 class="vip-card__name">VIP Kage</h2>
-        <div class="vip-card__price">R$ 70<small>,00</small></div>
-        <ul class="vip-card__benefits">
-          <li>25 Giros Insanos</li>
-          <li>17x Packs de Bife</li>
-          <li>50.000 Ryo</li>
-          <li>Cosmético de Roupa</li>
-          <li>Cosmético de Arma</li>
-          <li>Espada Encantada A3</li>
-          <li>Armadura Encantada P3</li>
-          <li><span class="benefit-highlight">Até 2 Clans Extra</span></li>
-        </ul>
-        <button
-          class="vip-card__btn"
-          id="btn-kage"
-          onclick="openModal('VIP Kage', 'R$ 70,00')"
-        >
-          Comprar ⟶
-        </button>
+      <!-- ===== VIP PATROCINADOR ===== -->
+      <article class="vip-card vip-card--patrocinador">
+        <div class="vip-card__content-wrapper">
+          <div class="patrocinador-left">
+            <div class="vip-card__icon">💎</div>
+            <span class="vip-card__tier">Tier Supremo — Fundadores</span>
+            <h2 class="vip-card__name">VIP Patrocinador</h2>
+            <p class="vip-card__desc">« O ápice do prestígio ninja! Forjado para os verdadeiros fundadores. Molde o seu destino e o dos seus aliados. »</p>
+            <div class="vip-card__price">R$ 110<small>,00</small></div>
+            
+            <button class="vip-card__btn" style="margin-bottom: 24px;" onclick="openModal('VIP Patrocinador', 'R$ 110,00')">Tornar-se um Patrocinador ⟶</button>
+          </div>
+          
+          <div class="patrocinador-right">
+            <div class="benefits-group">
+              <div class="benefits-title">🌐 Poder de Escolha (Comunidade)</div>
+              <ul class="vip-card__benefits">
+                <li><i>✦</i> <span class="highlight-text">Liberdade total para ESCOLHER O CLÃ E A VILA inicial!</span></li>
+                <li><i>✦</i> <strong>Líder de Facção:</strong> Leve até 3 amigos direto para a sua Vila.</li>
+                <li><i>✦</i> <strong>Mecenas Shinobi:</strong> Escolha UM VIP para presentear seu amigo!</li>
+                <li><i>✦</i> Acesso irrestrito ao comando <strong>[/fix]</strong> para reparar itens.</li>
+                <li><i>✦</i> Comando <strong>[/ec]</strong> vitalício (Enderchest).</li>
+                <li><i>✦</i> WL com <strong>Fila Prioritária Máxima</strong> e Cargo <strong>[VIP Patrocinador]</strong>.</li>
+              </ul>
+            </div>
+
+            <div class="benefits-group" style="margin-bottom: 0;">
+              <div class="benefits-title">📦 Tesouro do Daimyo (Kit In-Game)</div>
+              <ul class="vip-card__benefits">
+                <li><i>✦</i> <strong>25x Giros Insanos</strong> (Apenas 1x).</li>
+                <li><i>✦</i> <strong>1x Cosmético Roupa</strong> + <strong>1x Cosmético Arma</strong>.</li>
+                <li><i>✦</i> <strong>50.000 Ryō</strong> adicionados na conta.</li>
+                <li><i>✦</i> Espada Encantada <strong>(A3)</strong> + Armadura <strong>(P3)</strong>.</li>
+                <li><i>✦</i> <strong>17x Packs de Bife</strong>.</li>
+              </ul>
+              <div class="kit-rule">
+                <span>⏱️</span> Armas, Ryō e Bifes resetam a cada 24 horas usando o comando do kit!
+              </div>
+            </div>
+          </div>
+        </div>
       </article>
 
     </div>
@@ -860,7 +931,7 @@
       <button class="modal__close" id="modal-close" aria-label="Fechar modal">✕</button>
 
       <div class="modal__icon">💳</div>
-      <h3 class="modal__title" id="modal-title">Pagamento via Pix</h3>
+      <h3 class="modal__title" id="modal-title">Adquirir Pacote</h3>
       <p class="modal__desc" id="modal-desc">
         <!-- Preenchido via JavaScript -->
       </p>
@@ -872,23 +943,28 @@
         <div class="modal__copy-hint">Clique na chave para copiar</div>
       </div>
 
-      <!-- Aviso -->
+      <!-- Avisos -->
       <div class="modal__warning">
-        <div class="modal__warning-icon">⚠️</div>
-        <div class="modal__warning-text">
-          <strong>IMPORTANTE:</strong> Após efetuar o pagamento, mande o comprovante no canal
-          <strong>#tickets-compra</strong> no nosso Discord para receber seu VIP.
+        <div class="warning-row">
+          <div class="modal__warning-icon">🎟️</div>
+          <div class="modal__warning-text">
+            Após efetuar o pagamento, abra um Ticket no nosso Discord na aba <strong>"Compra/VIP"</strong> ou <strong>"Compra/Doação"</strong> e mande o comprovante.
+          </div>
+        </div>
+        <div class="warning-row">
+          <div class="modal__warning-icon">❤️</div>
+          <div class="modal__warning-text">
+            Muito obrigado! Todo o valor é revestido para manter a nossa Host sem lag e financiar novas atualizações.
+          </div>
         </div>
       </div>
 
-      <!-- Botão copiar chave -->
       <button class="modal__copy-btn" id="copy-btn" onclick="copyPixKey()">
         📋 Copiar Chave Pix
       </button>
     </div>
   </div>
 
-  <!-- Toast de feedback -->
   <div class="toast" id="toast">✅ Chave Pix copiada!</div>
 
   <!-- ============================
@@ -904,61 +980,38 @@
        JAVASCRIPT
   ============================= -->
   <script>
-    // ================================================================
-    //  REFERÊNCIAS AO DOM
-    // ================================================================
     const modalOverlay = document.getElementById('modal-overlay');
     const modalDesc    = document.getElementById('modal-desc');
     const modalClose   = document.getElementById('modal-close');
     const pixKeyEl     = document.getElementById('pix-key');
     const toast        = document.getElementById('toast');
 
-    // ================================================================
-    //  ABRIR MODAL — recebe o nome e valor do pacote
-    // ================================================================
     function openModal(packageName, packageValue) {
-      // Atualiza o texto dinâmico
-      modalDesc.innerHTML =
-        `Você selecionou o pacote <strong>${packageName}</strong> no valor de <strong>${packageValue}</strong>.`;
-
-      // Exibe o modal
+      modalDesc.innerHTML = `Você selecionou o <strong>${packageName}</strong> no valor de <strong>${packageValue}</strong>. Pagamento único, privilégios permanentes!`;
       modalOverlay.classList.add('active');
       modalOverlay.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden'; // trava scroll do fundo
+      document.body.style.overflow = 'hidden'; 
     }
 
-    // ================================================================
-    //  FECHAR MODAL
-    // ================================================================
     function closeModal() {
       modalOverlay.classList.remove('active');
       modalOverlay.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = ''; // libera scroll
+      document.body.style.overflow = ''; 
     }
 
-    // Fecha pelo botão "X"
     modalClose.addEventListener('click', closeModal);
-
-    // Fecha clicando fora do modal (no overlay)
     modalOverlay.addEventListener('click', function (e) {
       if (e.target === modalOverlay) closeModal();
     });
-
-    // Fecha ao pressionar Escape
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') closeModal();
     });
 
-    // ================================================================
-    //  COPIAR CHAVE PIX
-    // ================================================================
     function copyPixKey() {
       const key = pixKeyEl.textContent.trim();
-
       navigator.clipboard.writeText(key).then(function () {
         showToast();
       }).catch(function () {
-        // Fallback para navegadores mais antigos
         const textarea = document.createElement('textarea');
         textarea.value = key;
         textarea.style.position = 'fixed';
@@ -971,12 +1024,8 @@
       });
     }
 
-    // Copiar ao clicar diretamente na chave
     pixKeyEl.addEventListener('click', copyPixKey);
 
-    // ================================================================
-    //  TOAST DE FEEDBACK
-    // ================================================================
     function showToast() {
       toast.classList.add('show');
       setTimeout(function () {

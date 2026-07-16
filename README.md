@@ -12,18 +12,18 @@ Landing page de vendas de pacotes VIP para o servidor **Nindo Craft Shinobi War*
 
 | Desktop | Mobile |
 |---------|--------|
-| Cards VIP com efeitos de hover e glow colorido | Layout responsivo otimizado para celulares |
+| Cards VIP com grid dinâmico (Patrocinador em destaque) | Layout responsivo otimizado para celulares |
 
 ---
 
 ## ✨ Funcionalidades
 
-- 🌑 **Dark Mode** — Design moderno com fundo escuro e animações de luz ambiente
-- 🃏 **5 Cards VIP** — Hyuuga, Senju, Uchiha, Otsutsuki e Kage, cada um com cor exclusiva
-- 🎯 **Efeitos de Hover** — Cards sobem com sombra/glow na cor do VIP
-- 💳 **Modal de Compra** — Pop-up com chave Pix e instruções de pagamento
+- 🌑 **Dark Mode** — Design moderno com fundo escuro e orbs de energia
+- 🃏 **5 Cards VIP** — Hagoromo, Rikudou, Indra, Ashura e Patrocinador (Layout Elite)
+- 🎯 **Efeitos de Hover** — Cards com box-shadow glow colorido na cor do VIP
+- 💳 **Modal de Compra** — Pop-up com chave Pix UUID e instruções de ticket
 - 📋 **Copiar Chave Pix** — Botão de cópia com feedback visual (toast)
-- 📱 **100% Responsivo** — Funciona perfeitamente em desktop e mobile
+- 📱 **100% Responsivo** — Cards quebram magicamente para 1 coluna no mobile
 - ♿ **Acessível** — Atributos `aria-*`, fecha com `Escape`, semântica HTML5
 
 ---
@@ -41,36 +41,15 @@ Landing page de vendas de pacotes VIP para o servidor **Nindo Craft Shinobi War*
 
 ---
 
-## 📁 Estrutura do Projeto
-
-```
-📦 nindo-craft-shinobi-war
-├── index.html      # Página principal (HTML + CSS + JS embutidos)
-├── README.md       # Documentação do projeto
-├── LICENSE         # Licença MIT
-└── .gitignore      # Arquivos ignorados pelo Git
-```
-
----
-
-## 🛠️ Tecnologias
-
-- **HTML5** — Estrutura semântica
-- **CSS3** — Flexbox, Grid, animações, variáveis CSS, `backdrop-filter`
-- **JavaScript** — Vanilla JS (sem dependências)
-- **Google Fonts** — Outfit + JetBrains Mono
-
----
-
-## 💰 Pacotes VIP
+## 💰 Pacotes VIP 2026
 
 | Pacote | Preço | Destaque |
 |--------|-------|----------|
-| 👁️ VIP Hyuuga | R$ 10,00 | +5 Giros |
-| 🌿 VIP Senju | R$ 15,00 | 10 Giros Exclusivos |
-| 🔥 VIP Uchiha | R$ 30,00 | Até 2 Clans Extra |
-| 🌙 VIP Otsutsuki | R$ 50,00 | Até 2 Clans Extra |
-| 👑 VIP Kage | R$ 70,00 | 50.000 Ryo + Até 2 Clans Extra |
+| 🌟 VIP Hagoromo | R$ 10,00 | WL Automática + Espada AI |
+| ☯️ VIP Rikudou | R$ 15,00 | /enderchest + Espada P2 |
+| ⚡ VIP Indra | R$ 30,00 | Imunidade a Queda + 15x Giros |
+| 🌿 VIP Ashura | R$ 50,00 | Mesa de Trabalho Portátil + Food VIP |
+| 💎 VIP Patrocinador| R$ 110,00| Escolher Vila/Clã + Presentear Amigo |
 
 ---
 
